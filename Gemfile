@@ -4,7 +4,6 @@ source 'http://rubygems.org'
 
 # Server stuff
 gem 'puma'
-
 gem 'rack'
 gem 'rack-cors'
 
@@ -14,17 +13,21 @@ gem 'grape-entity'
 gem 'grape-swagger'
 gem 'grape-swagger-entity'
 
-gem 'zeitwerk'
-
+# Persistence
 gem 'activerecord'
 gem 'otr-activerecord'
-
 gem 'pg'
 
+
+gem 'zeitwerk'
+gem 'bcrypt'
+gem 'jwt'
+
 group :development, :test do
-  gem 'pry'
   gem 'rack-test'
   gem 'rake'
   gem 'rspec'
-  gem 'rubocop', '~> 0.88'
+  gem 'rubocop'
+  gem 'factory_bot'
+  gem 'database_cleaner'
 end

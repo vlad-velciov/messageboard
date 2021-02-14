@@ -3,28 +3,29 @@ module Endpoints
 
     namespace :messages do
 
+      params do
+        requires :receiver_ids, type: Array, documentation: { in: 'body' }
+        requires :sender_id, type: Numeric, documentation: { in: 'body' }
+        requires :message, type: String, documentation: { in: 'body' }
+      end
+      post do
+        sender = MessageSender.new(params)
+        message = sender.send
+
+        present message
+      end
+
+      params do
+        requires :user_id, type: Numeric, documentation: { in: 'body' }
+        requires :message_id, type: String, documentation: { in: 'body' }
+        requires :timezone, type: String, documentation: { in: 'body' }
+      end
       get do
+        messages = MessageReader.new(params)
 
-
-        puts 'asdasd'
-
-        m = Message.new
-        m.message = 'foo'
-        user = User.new
-        user.email = 'foo@goo.com'
-        m.receiver = user
-        m.sender = user
-        present m, with: Entities::Message
-        # authenticate token
-        # get timezone from token
-        # get messages with timezone
+        present messages, with Entities::Message
       end
 
-      put do
-        present {}
-        # update to read
-        # how do i update only if one user read, so that others can still read it ?
-      end
     end
   end
 end

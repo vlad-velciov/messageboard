@@ -23,11 +23,3 @@ loader.setup
 loader.eager_load
 
 OTR::ActiveRecord.configure_from_file!('config/database.yml')
-
-# Dir[File.expand_path('../api/entities/*.rb', __dir__)].sort.each do |entity|
-#   require entity
-# end
-#
-# Dir[File.expand_path('../api/endpoints/*.rb', __dir__)].sort.each do |endpoint|
-#   require endpoint
-# end
