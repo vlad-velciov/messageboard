@@ -3,7 +3,7 @@
 source 'http://rubygems.org'
 
 # Server stuff
-gem 'thin'
+gem 'puma'
 
 gem 'rack'
 gem 'rack-cors'
@@ -14,8 +14,14 @@ gem 'grape-entity'
 gem 'grape-swagger'
 gem 'grape-swagger-entity'
 
+gem 'zeitwerk'
+
+gem 'activerecord'
+gem 'otr-activerecord'
+
+gem 'pg'
+
 group :development, :test do
-  gem 'grape-starter'
   gem 'pry'
   gem 'rack-test'
   gem 'rake'

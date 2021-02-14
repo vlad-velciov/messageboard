@@ -3,6 +3,7 @@
 require 'rack/cors'
 require_relative 'config/application'
 
+use OTR::ActiveRecord::ConnectionManagement
 use Rack::CommonLogger
 
 use Rack::Cors do
@@ -12,4 +13,5 @@ use Rack::Cors do
   end
 end
 
-run App.new
+run Messageboard.new
+
