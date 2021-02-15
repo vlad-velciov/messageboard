@@ -8,5 +8,6 @@ class CreateMessageNotifications < ActiveRecord::Migration[6.0]
       t.timestamps
     end
 
+    add_index :message_notifications, :user_id
   end
 end
