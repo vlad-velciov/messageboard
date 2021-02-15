@@ -1,4 +1,4 @@
-##Messageboard
+## Messageboard
 
 ### Start application
 1. Make a copy of the `.env.sample` file and rename it into `.env`
