@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Services
   module ApplicationService
+
     def call(*args, &block)
       service = new(*args)
       if block_given?

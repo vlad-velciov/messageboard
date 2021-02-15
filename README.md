@@ -1,100 +1,36 @@
-<!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:0 orderedList:0 -->
+##Messageboard
 
-- [adept it to your needs](#adept-it-to-your-needs)
-  - [Your awesome API](#your-awesome-api)
-  - [Usage](#usage)
-  - [Rake Tasks](#rake-tasks)
-  - [Docker](#docker)
-  - [Contributing](#contributing)
-  - [License](#license)
-
-<!-- /TOC -->
-
-# adept it to your needs
-
-## Your awesome API
-
-A [Grape](http://github.com/ruby-grape/grape) API mounted on [Rack](https://github.com/rack/rack), starting point for API development with Grape. It also includes [grape-swagger](http://github.com/ruby-grape/grape-swagger) for documentation generating.
-
-
-## Usage
-
-All following commands can and should be adapted/replaced to your needs.
-
-- [Setup](#setup)
-- [Test](#test)
-- [Run](#run)
-- [Update](#update)
-- [Stop](#stop)
-
-#### `Setup`
-
+### Start application
+1. Make a copy of the `.env.sample` file and rename it into `.env`
+2. Run 
 ```
-$ ./script/setup
+docker-compose run messageboard bundle exec rake db:create && docker-compose run messageboard bundle exec 
+rake db:schema:load
 ```
+3. Run `docker-compose up`
 
-#### `Test`
+### Documentation
+This application uses swagger documentation. 
+1. Start application
+2. Go to https://petstore.swagger.io
+3. Input `http://localhost:3000/v1/swagger_doc` and click `Explore`
+4. Browse around the api
 
-```
-$ ./script/test
-```
+### User flow
+1. A user registers providing email, password and timezone. (`/v1/registrations`) 
+2. He authenticates with email and password and gets a token. (`v1/authentications`)  
+<i>Use the token in the authorization header: Authorization: Bearer <token> for following commands </i>
+4. Send a message to yourself(use the same user id for sender and in receiver array) (`v1/messages`)
+5. Retrieve the message `v1/users/:user_id/messages`
+<i> Message dates should be in user time zone. </i>
+6. Retrieve messages again. Already read messages should not be fetched again.
 
-#### `Run`
+### Extra info
+A message has a sender and multiple recipients. The recipients and the messages are tied together via the 
+message notifications models, which can be read or not read.
+Once the user fetches his messages, they are set as read, and cannot be retrieved this way again.
 
-```
-$ ./script/server *port (default: 9292)
-```
-and go to: [http://localhost:port/doc](http://localhost:9292/doc)
-to access the OAPI documentation.
+Authentication is done simply with a JWT token, which has some information about the user that we need (e.g.: timezone).
 
-For production, set `RACK_ENV=production`
-```
-$ RACK_ENV=production ./script/server *port (default: 9292)
-```
-
-#### `Update`
-
-… dependencies
-```
-$ ./script/update
-```
-
-#### `Stop`
-
-… would only be used, if server started in production mode
-```
-$ ./script/stop
-```
-
-## Rake Tasks
-
-- [List Routes](#list-routes)
-- [OpenApi Documentation and Validation](#openapi-documentation-and-validation)
-
-#### List Routes
-
-```
-rake routes
-```
-
-#### OpenApi Documentation and Validation
-
-```
-rake oapi:fetch
-rake oapi:validate
-```
-comming from: [`grape-swagger` Rake Tasks](https://github.com/ruby-grape/grape-swagger#rake-tasks)
-
-## Docker
-
-- build: `docker build -t awesome_api .`
-- run: `docker run -it -p 9292:9292 --rm awesome_api`
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/name/repo.
-
-
-## License
-
-The gem is available as open source under the terms of the [MIT License](LICENSE).
+The business logic for using the user's timezone is in the presentation layer, as we want to work with the database
+times until the very last step.

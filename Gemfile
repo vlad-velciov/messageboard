@@ -23,6 +23,8 @@ gem 'zeitwerk'
 gem 'bcrypt'
 gem 'jwt'
 
+gem 'dotenv'
+
 group :development, :test do
   gem 'rack-test'
   gem 'rake'
@@ -30,4 +32,5 @@ group :development, :test do
   gem 'rubocop'
   gem 'factory_bot'
   gem 'database_cleaner'
+  gem 'timecop'
 end

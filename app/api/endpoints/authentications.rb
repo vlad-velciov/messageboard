@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 module Endpoints
-  class Authentications < Grape::API
+  class Authentications < ApplicationEndpoint
     namespace :authentications do
 
+      desc 'Authenticate user'
       params do
         requires :email, type: String, documentation: { in: 'body' }
         requires :password, type: String, documentation: { in: 'body' }

@@ -5,6 +5,8 @@ require 'bundler/setup'
 
 Bundler.require :default, ENV['RACK_ENV']
 
+Dotenv.load
+
 loader = Zeitwerk::Loader.new
 loader.push_dir('app/api')
 loader.push_dir('app/models')

@@ -1,6 +1,5 @@
 describe Services::MessageSender do
 
-
   describe "#call" do
 
     it 'creates notifications for all receivers' do

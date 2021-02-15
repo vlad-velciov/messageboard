@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Services
 
   class MessageReader
@@ -8,8 +10,13 @@ module Services
       @timezone = timezone
     end
 
-    def read
-      messages = user.unread_messages
+    def call
+      messages = user.unread_messages.to_a #todo mark as read
+      user.unread_message_notifications.update(read: true)
+
+      messages
+    rescue ActiveRecord::RecordNotFound
+      []
     end
 
     private

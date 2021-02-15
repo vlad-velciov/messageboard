@@ -6,7 +6,7 @@ describe Endpoints::Messages do
       it 'returns a 403' do
         post '/v1/messages', sender_id: 123, receiver_ids: [123, 434], message: 'Some Message'
 
-        expect(JSON.parse(last_response.body)).to eq({'error' => 'Token invalid'})
+        expect(JSON.parse(last_response.body)).to eq({'error' => 'Unauthorized'})
         expect(last_response.status).to eq(403)
       end
     end

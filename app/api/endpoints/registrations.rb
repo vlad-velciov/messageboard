@@ -1,9 +1,11 @@
 # frozen_string_literal: true
 
 module Endpoints
-  class Registrations < Grape::API
+  class Registrations < ApplicationEndpoint
 
     namespace :registrations do
+
+      desc 'Registers a new user'
       params do
         requires :email, type: String, documentation: { in: 'body' }
         requires :password, type: String, documentation: { in: 'body' }

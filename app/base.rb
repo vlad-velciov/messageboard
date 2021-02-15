@@ -17,12 +17,11 @@ class Base < Grape::API
     mount Endpoints::UserMessages
   end
 
-
   add_swagger_documentation format:     :json,
                             info:       {
                               title: 'Messageboard API'
                             },
-                            mount_path: '/api-doc',
+                            schemes: 'http',
                             models:     [
                                           Entities::Message,
                                           Entities::User

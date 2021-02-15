@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Services
   class Registration
 
@@ -8,7 +10,7 @@ module Services
     end
 
     def call
-      User.create!(email: @email, encrypted_password: encrypted_password, timezone: @timezone)
+      User.create(email: @email, encrypted_password: encrypted_password, timezone: @timezone)
     end
 
     private
