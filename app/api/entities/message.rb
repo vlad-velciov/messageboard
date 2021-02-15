@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Entities
   class Message < Grape::Entity
     expose :id, :message, :created_at, :updated_at

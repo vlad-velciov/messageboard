@@ -4,8 +4,19 @@ class Base < Grape::API
   version 'v1', using: :path
   format :json
 
-  mount Endpoints::Messages
-  mount Endpoints::Auth
+  helpers Support::Authentication
+  helpers Support::Response
+
+  mount Endpoints::Registrations
+  mount Endpoints::Authentications
+
+  namespace do
+    before { authenticate_token! }
+
+    mount Endpoints::Messages
+    mount Endpoints::UserMessages
+  end
+
 
   add_swagger_documentation format:     :json,
                             info:       {
@@ -13,7 +24,8 @@ class Base < Grape::API
                             },
                             mount_path: '/api-doc',
                             models:     [
-                                          Entities::ApiError
+                                          Entities::Message,
+                                          Entities::User
                                         ]
 
   get :status do
