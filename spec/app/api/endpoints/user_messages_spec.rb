@@ -1,5 +1,10 @@
 describe Endpoints::UserMessages do
 
+  context 'unauthorized' do
+    subject { get "/v1/users/1234/messages" }
+    it_behaves_like 'authorized endpoint'
+  end
+
   context 'authorized' do
     let!(:user) { create(:user, timezone: 'American Samoa') }
     let!(:token) do

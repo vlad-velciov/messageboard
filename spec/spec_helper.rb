@@ -5,6 +5,8 @@ require_relative '../config/application'
 
 ActiveRecord::Base.logger.level = Logger::INFO
 
+require_relative 'shared_examples/authorization'
+
 RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Rack::Test::Methods

@@ -11,7 +11,7 @@ module Services
     end
 
     def call
-      messages = user.unread_messages.to_a #todo mark as read
+      messages = user.unread_messages.to_a
       user.unread_message_notifications.update(read: true)
 
       messages
