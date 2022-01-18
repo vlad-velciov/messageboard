@@ -33,4 +33,5 @@ group :development, :test do
   gem 'factory_bot'
   gem 'database_cleaner'
   gem 'timecop'
+  gem 'danger'
 end
